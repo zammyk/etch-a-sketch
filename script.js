@@ -21,8 +21,20 @@ function changeColor(e){
     }
 }
 
+function resetCells(e){
+    for(let i = 0;i<16;i++){
+        for(let j = 0;j<16;j++){
+            let cell = document.getElementById('cell-'+i+'-'+j);
+            console.log(cell.id);
+            cell.classList.remove('colored-cell');
+        }
+    }
+}
 
 let cells = document.querySelectorAll('.cell');
+let resetBtn = document.querySelector('#resetBtn')
+
 cells.forEach((cell)=>{
     cell.addEventListener('mousemove',changeColor);
 });
+resetBtn.addEventListener('click',resetCells);
