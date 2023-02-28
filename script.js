@@ -32,9 +32,23 @@ function resetCells(e){
 }
 
 let cells = document.querySelectorAll('.cell');
-let resetBtn = document.querySelector('#resetBtn')
+let resetBtn = document.querySelector('#resetBtn');
+let colorBtn = document.querySelector('#colorBtn');
+let blackBtn = document.querySelector('#blackBtn');
+let shadeBtn = document.querySelector('#shadeBtn');
+let buttons = [resetBtn,colorBtn,blackBtn,shadeBtn];
 
 cells.forEach((cell)=>{
     cell.addEventListener('mousemove',changeColor);
 });
 resetBtn.addEventListener('click',resetCells);
+buttons.forEach((button)=>{
+    button.addEventListener('mousedown',()=>{
+        button.classList.add('button-pressed');
+    });
+});
+buttons.forEach((button)=>{
+    button.addEventListener('mouseup',()=>{
+        button.classList.remove('button-pressed');
+    });
+});

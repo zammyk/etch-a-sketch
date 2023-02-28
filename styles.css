@@ -38,6 +38,8 @@ body {
 }
 
 button {
+    width: 150px;
+    padding: 10px 20px 10px;
     margin-top: 24px;
     font-family: 'Mynerve', cursive;
     font-weight: bold;
@@ -45,4 +47,8 @@ button {
     border: 2px solid;
     border-radius: 5px;
     background-color: white;
+}
+
+.button-pressed {
+    background-color: lightgray;
 }
