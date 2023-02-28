@@ -13,3 +13,16 @@ for(let i = 0;i<16;i++){
     toAdd.appendChild(newRow);
 }
 container.appendChild(toAdd);
+
+function changeColor(e){
+    if(e.buttons == 1) {
+        e.preventDefault();
+        this.classList.add('colored-cell');
+    }
+}
+
+
+let cells = document.querySelectorAll('.cell');
+cells.forEach((cell)=>{
+    cell.addEventListener('mousemove',changeColor);
+});
