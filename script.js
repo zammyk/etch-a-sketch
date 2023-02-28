@@ -17,7 +17,7 @@ container.appendChild(toAdd);
 function changeColor(e){
     if(e.buttons == 1) {
         e.preventDefault();
-        this.classList.add('colored-cell');
+        this.classList.add('black-colored-cell');
     }
 }
 
@@ -26,7 +26,7 @@ function resetCells(e){
         for(let j = 0;j<16;j++){
             let cell = document.getElementById('cell-'+i+'-'+j);
             console.log(cell.id);
-            cell.classList.remove('colored-cell');
+            cell.classList.remove('black-colored-cell');
         }
     }
 }

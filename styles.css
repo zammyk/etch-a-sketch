@@ -24,7 +24,7 @@ body {
     border: 1px black solid;
 }
 
-.colored-cell{
+.black-colored-cell{
     background-color: black;
 }
 
@@ -32,8 +32,13 @@ body {
     display: flex;
 }
 
-#resetBtn {
-    margin: 24px;
+.color-buttons {
+    display: flex;
+    gap: 24px;
+}
+
+button {
+    margin-top: 24px;
     font-family: 'Mynerve', cursive;
     font-weight: bold;
     font-size: 30px;
