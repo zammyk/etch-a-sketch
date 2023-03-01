@@ -51,6 +51,7 @@ function updateGrid(){
         if(inputNum<1||inputNum>100)
         {
             alert("Number of Squares per side should be in the range: [0,100]!");
+            return;
         }
         emptyContainer();
         squarePerSide = inputNum;
