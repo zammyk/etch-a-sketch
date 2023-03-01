@@ -2,6 +2,7 @@ let container = document.querySelector('.etch-container');
 let toAdd = document.createDocumentFragment();
 let squarePerSide = 20;
 let cells;
+let fillColor = 'black';
 
 function makeGrid(){
     for(let i = 0;i<squarePerSide;i++){
@@ -19,7 +20,9 @@ function makeGrid(){
     container.appendChild(toAdd);
     cells = document.querySelectorAll('.cell');
     cells.forEach((cell)=>{
-        cell.addEventListener('mousemove',changeColor);
+        cell.addEventListener('mousemove',function(e){
+            changeColor(e,cell,fillColor);
+        });
     });
 }
 
@@ -29,10 +32,13 @@ function emptyContainer(){
     }
 }
 
-function changeColor(e){
+function changeColor(e,cell, colorType){
     if(e.buttons == 1) {
         e.preventDefault();
-        this.classList.add('black-colored-cell');
+        if(colorType == 'black')
+            cell.style.backgroundColor = 'black';
+        else if(colorType == 'color')
+            cell.style.backgroundColor = random_rgba();
     }
 }
 
@@ -40,7 +46,7 @@ function resetCells(){
     for(let i = 0;i<squarePerSide;i++){
         for(let j = 0;j<squarePerSide;j++){
             let cell = document.getElementById('cell-'+i+'-'+j);
-            cell.classList.remove('black-colored-cell');
+            cell.style.backgroundColor = '';
         }
     }
 }
@@ -62,6 +68,11 @@ function updateGrid(){
     }
 }
 
+function random_rgba() {
+    var o = Math.round, r = Math.random, s = 255;
+    return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
+}
+
 makeGrid();
 let resetBtn = document.querySelector('#resetBtn');
 let colorBtn = document.querySelector('#colorBtn');
@@ -71,7 +82,9 @@ let squareCntBtn = document.querySelector('#squareCntBtn');
 let buttons = [resetBtn,colorBtn,blackBtn,shadeBtn,squareCntBtn];
 
 cells.forEach((cell)=>{
-    cell.addEventListener('mousemove',changeColor);
+    cell.addEventListener('mousemove',function(e){
+        changeColor(e,cell,fillColor);
+    });
 });
 
 buttons.forEach((button)=>{
@@ -83,6 +96,14 @@ buttons.forEach((button)=>{
     button.addEventListener('mouseup',()=>{
         button.classList.remove('button-pressed');
     });
+});
+
+colorBtn.addEventListener('click',(e)=>{
+    fillColor = 'color';
+});
+
+blackBtn.addEventListener('click',(e)=>{
+    fillColor = 'black';
 });
 
 resetBtn.addEventListener('click',resetCells);
