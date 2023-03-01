@@ -4,6 +4,10 @@ let squarePerSide = 20;
 let cells;
 let fillColor = 'black';
 
+function toRgbString(r,g,b,a){
+    return `rgb(${r},${g},${b},${a})`;
+}
+
 function makeGrid(){
     for(let i = 0;i<squarePerSide;i++){
         let newRow = document.createElement('div');
@@ -13,6 +17,7 @@ function makeGrid(){
             let newCell = document.createElement('div');
             newCell.id = 'cell-'+i+'-'+j;
             newCell.classList.add('cell');
+            newCell.style.backgroundColor = 'rgba(0, 0, 0, 0)';
             newRow.appendChild(newCell);
         }
         toAdd.appendChild(newRow);
@@ -36,9 +41,20 @@ function changeColor(e,cell, colorType){
     if(e.buttons == 1) {
         e.preventDefault();
         if(colorType == 'black')
-            cell.style.backgroundColor = 'black';
+            cell.style.backgroundColor = 'rgba(0, 0, 0, 1.0)';
         else if(colorType == 'color')
             cell.style.backgroundColor = random_rgba();
+        else if(colorType == 'shade')
+        {
+            let rgb = cell.style.backgroundColor.match(/[\d\.]+/g);
+            console.log(rgb);
+            // if(rgb.length == 3)
+                // rgb.push('1');
+            cell.style.backgroundColor = toRgbString(rgb[0],rgb[1],rgb[2],Math.min(1, String(parseFloat(rgb[3])+0.01)));
+            // // console.log(cell.style.backgroundColor);
+            // // console.log(toRgbString(rgb[0],rgb[1],rgb[2],Math.min(1, String(parseFloat(rgb[3])+0.1))));
+            // console.log(rgb);
+        }
     }
 }
 
@@ -46,7 +62,7 @@ function resetCells(){
     for(let i = 0;i<squarePerSide;i++){
         for(let j = 0;j<squarePerSide;j++){
             let cell = document.getElementById('cell-'+i+'-'+j);
-            cell.style.backgroundColor = '';
+            cell.style.backgroundColor = 'rgba(0, 0, 0, 0)';
         }
     }
 }
@@ -70,7 +86,7 @@ function updateGrid(){
 
 function random_rgba() {
     var o = Math.round, r = Math.random, s = 255;
-    return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
+    return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + 1 + ')';
 }
 
 makeGrid();
@@ -104,6 +120,10 @@ colorBtn.addEventListener('click',(e)=>{
 
 blackBtn.addEventListener('click',(e)=>{
     fillColor = 'black';
+});
+
+shadeBtn.addEventListener('click',(e)=>{
+    fillColor = 'shade';
 });
 
 resetBtn.addEventListener('click',resetCells);
